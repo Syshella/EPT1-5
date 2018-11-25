@@ -1,0 +1,82 @@
+
+@author: Maria
+"""
+
+#dicPrueba = {'1': 'Rojo', '2': 'Azul', '3': 'Verde'}
+#file = "file_EPT1-5.txt"
+#def rellenar():
+#    with open(file, "w") as textfile:
+#        textfile.write("[1,Rojo][2,Azul][3,Verde]")
+#    
+def cargar_datos(file):   
+    '''
+    Funcion que recibe el nombre de un archivo, lo lee y 
+    lo convierte en un diccionario que devuelve.
+    '''
+    myDic = {}
+    wordLen=0
+    with open(file, "r") as textfile:
+        contentFile = textfile.read()
+    tValue=""
+    tKey=""    
+    for index in range(1,len(contentFile)):        
+        if contentFile[index-1-wordLen] == "[" and contentFile[index] != ",":
+            tKey += contentFile[index]
+            wordLen+=1
+        elif contentFile[index-1-wordLen] == "," and contentFile[index] != "]":
+            tValue += contentFile[index]
+            wordLen+=1
+        elif contentFile[index] == ",":
+            wordLen=0
+        elif contentFile[index] == "]" :
+            myDic[tKey]=tValue
+            wordLen=0
+            tKey=""
+            tValue=""  
+    print("\nEl contenido del diccionario es:")
+    print(myDic)       
+
+def guardar_datos(myDic, myFile):
+    '''
+    Funcion que recibe un diccionario y un archivo. 
+    Guarda el diccionario en el archivo con el formato [key,value]
+    
+    '''
+    write_file = open(myFile, "w")
+    myDict={}
+    myDict = myDic
+    
+    for key, value in myDict.items():
+        write_file.write("[" + key + "," + value + "]")    
+    write_file.close()
+    with open(myFile, "r") as textfile:
+        print(textfile.read())     
+ 
+def menu():
+    '''
+    Menu de opciones para las funciones anteriores
+    '''
+    print("Bienvenido al MENU")
+    print("1. Cargar datos")
+    print("2. Guardar datos")
+    print("3. Salir")
+
+    option = input("Seleccione una opcion:\n ")
+
+    if option == "1":
+        myFile = input("Introduce el nombre del archivo que quieres cargar:\n ") 
+        cargar_datos(myFile)
+        menu()
+    elif option == "2":  
+        myDic = input("Introduce tu diccionario:\n ")
+        myFile = input("Introduce el nombre del archivo donde lo quieres guardar:\n ")
+        guardar_datos(myDic, myFile)
+        menu()
+    elif option == "3":  
+        print("Hasta la proxima!")
+        menu()
+    else:
+        print("Introduce una opcion valida")
+        menu()
+rellenar()
+menu()
