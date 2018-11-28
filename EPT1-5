@@ -2,7 +2,7 @@
 @author: Maria
 """
 
-#dicPrueba = {'1': 'Rojo', '2': 'Azul', '3': 'Verde'}
+dicPrueba = {'1': 'Rojo', '2': 'Azul', '3': 'Verde'}
 #file = "file_EPT1-5.txt"
 #def rellenar():
 #    with open(file, "w") as textfile:
@@ -68,7 +68,9 @@ def menu():
         cargar_datos(myFile)
         menu()
     elif option == "2":  
-        myDic = input("Introduce tu diccionario:\n ")
+        #myDic = input("Introduce tu diccionario:\n ")
+        print("Usando el diccionario de prueba...")
+        myDic = dicPrueba
         myFile = input("Introduce el nombre del archivo donde lo quieres guardar:\n ")
         guardar_datos(myDic, myFile)
         menu()
